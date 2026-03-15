@@ -1,0 +1,113 @@
+import java.util.*;
+
+public class OnlineReservationSystem {
+
+    static Scanner sc = new Scanner(System.in);
+
+    static String loginId = "admin";
+    static String password = "1234";
+
+    static int pnr;
+    static String name, trainName, classType, from, to, date;
+    static int trainNo;
+
+    public static void login() {
+        System.out.println("----- LOGIN -----");
+        System.out.print("Enter Login ID: ");
+        String id = sc.next();
+
+        System.out.print("Enter Password: ");
+        String pass = sc.next();
+
+        if (id.equals(loginId) && pass.equals(password)) {
+            System.out.println("Login Successful!\n");
+            menu();
+        } else {
+            System.out.println("Invalid Login Details");
+        }
+    }
+
+    public static void menu() {
+        while (true) {
+            System.out.println("\n--- MAIN MENU ---");
+            System.out.println("1. Reservation");
+            System.out.println("2. Cancellation");
+            System.out.println("3. Exit");
+            System.out.print("Choose option: ");
+
+            int choice = sc.nextInt();
+
+            switch (choice) {
+                case 1:
+                    reservation();
+                    break;
+                case 2:
+                    cancellation();
+                    break;
+                case 3:
+                    System.out.println("Thank you!");
+                    System.exit(0);
+                default:
+                    System.out.println("Invalid choice");
+            }
+        }
+    }
+
+    public static void reservation() {
+        System.out.println("\n--- RESERVATION FORM ---");
+
+        System.out.print("Enter Name: ");
+        name = sc.next();
+
+        System.out.print("Enter Train Number: ");
+        trainNo = sc.nextInt();
+
+        System.out.print("Enter Train Name: ");
+        trainName = sc.next();
+
+        System.out.print("Enter Class Type: ");
+        classType = sc.next();
+
+        System.out.print("Enter Date of Journey: ");
+        date = sc.next();
+
+        System.out.print("From: ");
+        from = sc.next();
+
+        System.out.print("To: ");
+        to = sc.next();
+
+        pnr = (int)(Math.random() * 100000);
+
+        System.out.println("\nReservation Successful!");
+        System.out.println("PNR Number: " + pnr);
+    }
+
+    public static void cancellation() {
+        System.out.println("\n--- CANCELLATION ---");
+        System.out.print("Enter PNR Number: ");
+        int inputPNR = sc.nextInt();
+
+        if (inputPNR == pnr) {
+            System.out.println("Ticket Found:");
+            System.out.println("Name: " + name);
+            System.out.println("Train: " + trainName);
+            System.out.println("From: " + from + " To: " + to);
+
+            System.out.print("Confirm Cancellation (yes/no): ");
+            String confirm = sc.next();
+
+            if (confirm.equalsIgnoreCase("yes")) {
+                System.out.println("Ticket Cancelled Successfully!");
+            } else {
+                System.out.println("Cancellation Aborted");
+            }
+        } else {
+            System.out.println("PNR Not Found");
+        }
+    }
+
+    public static void main(String[] args) {
+        login();
+    }
+}
