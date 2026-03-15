@@ -1,0 +1,175 @@
+import java.util.*;
+
+class Book {
+    int id;
+    String name;
+    String author;
+
+    Book(int id, String name, String author) {
+        this.id = id;
+        this.name = name;
+        this.author = author;
+    }
+}
+
+public class DigitalLibrary {
+
+    static Scanner sc = new Scanner(System.in);
+    static ArrayList<Book> books = new ArrayList<>();
+
+    static String adminUser = "admin";
+    static String adminPass = "1234";
+
+    public static void main(String[] args) {
+
+        while(true) {
+
+            System.out.println("\n--- DIGITAL LIBRARY ---");
+            System.out.println("1. Admin Login");
+            System.out.println("2. User Section");
+            System.out.println("3. Exit");
+
+            System.out.print("Choose option: ");
+            int choice = sc.nextInt();
+
+            switch(choice) {
+
+                case 1:
+                    adminLogin();
+                    break;
+
+                case 2:
+                    userSection();
+                    break;
+
+                case 3:
+                    System.exit(0);
+            }
+        }
+    }
+
+    public static void adminLogin() {
+
+        System.out.print("Enter Admin Username: ");
+        String u = sc.next();
+
+        System.out.print("Enter Password: ");
+        String p = sc.next();
+
+        if(u.equals(adminUser) && p.equals(adminPass)) {
+            adminMenu();
+        } else {
+            System.out.println("Invalid login");
+        }
+    }
+
+    public static void adminMenu() {
+
+        while(true) {
+
+            System.out.println("\n--- ADMIN MENU ---");
+            System.out.println("1. Add Book");
+            System.out.println("2. Delete Book");
+            System.out.println("3. View Books");
+            System.out.println("4. Back");
+
+            int ch = sc.nextInt();
+
+            switch(ch) {
+
+                case 1:
+                    addBook();
+                    break;
+
+                case 2:
+                    deleteBook();
+                    break;
+
+                case 3:
+                    viewBooks();
+                    break;
+
+                case 4:
+                    return;
+            }
+        }
+    }
+
+    public static void addBook() {
+
+        System.out.print("Enter Book ID: ");
+        int id = sc.nextInt();
+
+        System.out.print("Enter Book Name: ");
+        String name = sc.next();
+
+        System.out.print("Enter Author: ");
+        String author = sc.next();
+
+        books.add(new Book(id, name, author));
+
+        System.out.println("Book Added Successfully");
+    }
+
+    public static void deleteBook() {
+
+        System.out.print("Enter Book ID to delete: ");
+        int id = sc.nextInt();
+
+        books.removeIf(b -> b.id == id);
+
+        System.out.println("Book Deleted");
+    }
+
+    public static void viewBooks() {
+
+        System.out.println("\n--- BOOK LIST ---");
+
+        for(Book b : books) {
+            System.out.println(b.id + " " + b.name + " by " + b.author);
+        }
+    }
+
+    public static void userSection() {
+
+        while(true) {
+
+            System.out.println("\n--- USER MENU ---");
+            System.out.println("1. View Books");
+            System.out.println("2. Search Book");
+            System.out.println("3. Back");
+
+            int ch = sc.nextInt();
+
+            switch(ch) {
+
+                case 1:
+                    viewBooks();
+                    break;
+
+                case 2:
+                    searchBook();
+                    break;
+
+                case 3:
+                    return;
+            }
+        }
+    }
+
+    public static void searchBook() {
+
+        System.out.print("Enter book name: ");
+        String name = sc.next();
+
+        for(Book b : books) {
+
+            if(b.name.equalsIgnoreCase(name)) {
+                System.out.println("Found: " + b.name + " by " + b.author);
+                return;
+            }
+        }
+
+        System.out.println("Book not found");
+    }
+}
