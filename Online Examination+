@@ -1,0 +1,111 @@
+import java.util.*;
+
+public class OnlineExam {
+
+    static Scanner sc = new Scanner(System.in);
+
+    static String userId = "student";
+    static String password = "1234";
+
+    static int score = 0;
+
+    public static void main(String[] args) {
+
+        login();
+
+        while(true) {
+
+            System.out.println("\n--- ONLINE EXAM SYSTEM ---");
+            System.out.println("1. Update Password");
+            System.out.println("2. Start Exam");
+            System.out.println("3. Logout");
+
+            System.out.print("Choose option: ");
+            int choice = sc.nextInt();
+
+            switch(choice) {
+
+                case 1:
+                    updatePassword();
+                    break;
+
+                case 2:
+                    startExam();
+                    break;
+
+                case 3:
+                    System.out.println("Logged Out Successfully");
+                    System.exit(0);
+
+                default:
+                    System.out.println("Invalid choice");
+            }
+        }
+    }
+
+    public static void login() {
+
+        System.out.println("----- LOGIN -----");
+
+        System.out.print("Enter User ID: ");
+        String id = sc.next();
+
+        System.out.print("Enter Password: ");
+        String pass = sc.next();
+
+        if(id.equals(userId) && pass.equals(password)) {
+            System.out.println("Login Successful");
+        } else {
+            System.out.println("Invalid Login");
+            System.exit(0);
+        }
+    }
+
+    public static void updatePassword() {
+
+        System.out.print("Enter new password: ");
+        password = sc.next();
+
+        System.out.println("Password Updated Successfully");
+    }
+
+    public static void startExam() {
+
+        score = 0;
+
+        System.out.println("\nExam Started (Answer by option number)");
+
+        // Question 1
+        System.out.println("\n1. Java is developed by?");
+        System.out.println("1. James Gosling");
+        System.out.println("2. Dennis Ritchie");
+        System.out.println("3. Bjarne Stroustrup");
+        System.out.println("4. Guido van Rossum");
+
+        int ans1 = sc.nextInt();
+        if(ans1 == 1) score++;
+
+        // Question 2
+        System.out.println("\n2. Which keyword is used to inherit class?");
+        System.out.println("1. implement");
+        System.out.println("2. extends");
+        System.out.println("3. inherit");
+        System.out.println("4. super");
+
+        int ans2 = sc.nextInt();
+        if(ans2 == 2) score++;
+
+        // Question 3
+        System.out.println("\n3. Which is not a Java feature?");
+        System.out.println("1. Object Oriented");
+        System.out.println("2. Portable");
+        System.out.println("3. Use of pointers");
+        System.out.println("4. Secure");
+
+        int ans3 = sc.nextInt();
+        if(ans3 == 3) score++;
+
+        System.out.println("\nExam Finished");
+        System.out.println("Your Score: " + score + "/3");
+    }
+}
